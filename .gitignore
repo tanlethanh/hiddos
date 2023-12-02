@@ -1,0 +1,7 @@
+.terraform*
+.venv
+
+.vscode
+__pycache__
+
+hiddos*
