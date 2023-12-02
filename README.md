@@ -1,4 +1,6 @@
-# ddos-simulation
+# HiDDoS
+
+A setup to learn and simulate DoS/DDoS attack
 
 ## Quick-start
 
