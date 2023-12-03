@@ -16,13 +16,7 @@ We already have a cli for easily run the simulation. Firstly, you need to build 
 pip install --editable .
 ```
 
-After above step, you already have a cli to simulate and test DoS/DDoS attack
-
-View detail of the cli
-
-```shell
-hiddos --help
-```
+After above step, you already have a cli to simulate and test DoS/DDoS attack. View detail of the cli `hiddos --help`
 
 First things first, you need to init and launch victim machine
 
