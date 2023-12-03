@@ -4,17 +4,33 @@ A setup to learn and simulate DoS/DDoS attack
 
 ## Setup
 
+### Setup dependencies
+
+We use Terraform with [AWS](https://docs.aws.amazon.com/) provider to launch an ec2 instance as a victim, you need to setup a AWS account and config `credentials` in local environment
+
 ### Setup cli
 
-We already have a cli for easily run the simulation. Firstly, I need to build the cli
+We already have a cli for easily run the simulation. Firstly, you need to build the cli
 
 ```bash
 pip install --editable .
 ```
 
-### Setup cloud machine
+After above step, you already have a cli to simulate and test DoS/DDoS attack
 
-We use Terraform with [AWS](https://docs.aws.amazon.com/) provider to launch an ec2 instance as a victim, you need to setup a AWS account and config `credentials` in local environment
+View detail of the cli
+
+```bash
+hiddos --help
+```
+
+First things first, you need to init and launch victim machine
+
+```bash
+hiddos victim --launch
+```
+
+### Connect and SSH
 
 Go to cloud directory and run terraform setup
 
