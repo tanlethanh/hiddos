@@ -13,6 +13,16 @@ import click
 def victim(ctx, launch, ip):
     click.echo("\n\n-------------------- Victim ---------------------\n")
     if launch:
+        click.echo("Init Terraform for launching victim machine on AWS EC2...")
+        command = ["terraform", "-chdir=./cloud", "init"]
+        result = run(command, stdout=PIPE, stderr=PIPE)
+        if result.returncode == 0:
+            click.echo("Init Terraform successfully")
+        else:
+            err = result.stderr.decode("utf-8")
+            click.echo(f"Fail to init Terraform:\n{err}", err=True)
+            return
+
         click.echo("Launching victim machine on AWS EC2 by Terraform...")
         command = ["terraform", "-chdir=./cloud", "apply", "-auto-approve"]
         result = run(command, stdout=PIPE, stderr=PIPE)
