@@ -1,7 +1,11 @@
 import json
+import logging
 import os
 
 import click
+
+logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
+
 
 from cli.syn_flood import syn_flood
 from cli.victim import victim

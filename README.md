@@ -34,13 +34,19 @@ Each attack is define as a subcommand, remember to use `--help` to explore all t
 
 #### SYN Flood
 
+To know detail of SYN Flood attack [https://www.cloudflare.com/learning/ddos/syn-flood-ddos-attack/](https://www.cloudflare.com/learning/ddos/syn-flood-ddos-attack/)
+
+Start attack the victim by default config
+
 ```shell
-hiddos syn-flood # Start attack with default config DoS mode, send 10000 packages
+hiddos syn-flood
 ```
 
 ```shell
 hiddos syn-flood --mode ddos -num-pkg 999999
 ```
+
+Too know what happens with this attack simulation, you need to open `Wireshark` and watch network change, you will see a tone of SYN packages sent to the victim. Our setup primarily point to port 80 of HTTP request, the `cli` will shows a url for you to launch a web page as a legitimate client. After few seconds, the server victim will be down, and you can not reach the server to get web page.
 
 ### Connect and SSH
 
