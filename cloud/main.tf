@@ -8,76 +8,45 @@ terraform {
 }
 
 provider "aws" {
-  # Configuration options
-  # region = "us-east-1" 
   region = "ap-south-1"
 }
 
 resource "aws_instance" "hiddos-victim" {
-  # ami                    = "ami-0230bd60aa48260c6"
-  ami                    = "ami-02a2af70a66af6dfb"
-  instance_type          = "t2.micro"
+  ami                    = "ami-0230bd60aa48260c6"
+  instance_type          = "t2.nano"
   key_name               = aws_key_pair.tf_ec2_key.key_name
   vpc_security_group_ids = [aws_security_group.ec2_security_group.id]
 
   tags = {
     Name = "hiddos"
   }
+
+  user_data = <<-EOF
+              #!/bin/bash
+              python3 -m http.server 80
+              EOF
 }
 
 # EC2 instance Security Group
 resource "aws_security_group" "ec2_security_group" {
   name        = "ec2_security_group"
-  description = "Allow SSH inbound traffic"
-
-  # Allow SSH inbound for allowed IP addressess
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  # TCP port 80 for HTTP
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  # TCP port 443 for HTTPS
-  ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+  description = "Allow all inbound/outbound traffic for easily attack"
 
   # Accept all inbound requests
   ingress {
     from_port   = 0
     to_port     = 0
-    protocol    = "all"
+    protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  # Outbound HTTP to anywhere
+  # Accept all outbound requests
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-
-  # Outbound HTTPS to anywhere
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
 }
 
 # Create RSA key of size 4096 bits
@@ -105,5 +74,5 @@ output "instance_user_data" {
 
 output "instance_public_ip" {
   description = "Public IP address of the EC2 instance"
-  value       = aws_instance.hiddos-victim.public_ip
+  value       = "http://${aws_instance.hiddos-victim.public_ip}"
 }

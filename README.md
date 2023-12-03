@@ -23,7 +23,7 @@ cd cloud
 terraform apply
 ```
 
-After `terraform plan`, it shows ip address of launched instance used to connect ssh from local. Also, a ssh key will be generated, you need enable key permission
+After `terraform apply`, it shows ip address of launched instance used to connect ssh from local. Also, a ssh key will be generated, you need enable key permission
 
 ```bash
 chmod 400 ./rf_ec2_key.pem
