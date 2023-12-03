@@ -12,12 +12,25 @@ import click
 @click.option("--ip", help="IP address of victim", is_flag=True)
 def victim(ctx, launch, ip):
     click.echo("\n\n-------------------- Victim ---------------------\n")
+    if launch:
+        click.echo("Launching victim machine on AWS EC2 by Terraform...")
+        command = ["terraform", "-chdir=./cloud", "apply", "-auto-approve"]
+        result = run(command, stdout=PIPE, stderr=PIPE)
+        if result.returncode == 0:
+            click.echo("Victim machine launched successfully")
+        else:
+            err = result.stderr.decode("utf-8")
+            click.echo(f"Fail to launch victim machine:\n{err}", err=True)
+            return
+
+        ip = True
+
     if ip:
         command = [
             "terraform",
+            "-chdir=./cloud",
             "output",
             "--raw",
-            "-state=./cloud/terraform.tfstate",
             "instance_public_ip",
         ]
         result = run(command, stdout=PIPE, stderr=PIPE)
@@ -34,6 +47,7 @@ def victim(ctx, launch, ip):
             err = result.stderr.decode("utf-8")
             click.echo(f"Fail to get ip from terraform output:\n{err}", err=True)
             click.echo("Note: Make sure you have launched victim machine by Terraform")
+            return
     else:
         click.echo(ctx.get_help())
 
