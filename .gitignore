@@ -8,3 +8,4 @@ terraform.tfstate*
 __pycache__
 
 hiddos*
+.hiddos
