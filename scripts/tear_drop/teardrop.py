@@ -1,5 +1,6 @@
 import sys
-from scapy.all import *
+
+from scapy.all import IP, send
 
 total = len(sys.argv)
 if total != 3:
