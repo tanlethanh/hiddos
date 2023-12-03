@@ -9,10 +9,12 @@ terraform {
 
 provider "aws" {
   # Configuration options
+  # region = "us-east-1" 
   region = "ap-south-1"
 }
 
 resource "aws_instance" "hiddos-victim" {
+  # ami                    = "ami-0230bd60aa48260c6"
   ami                    = "ami-02a2af70a66af6dfb"
   instance_type          = "t2.micro"
   key_name               = aws_key_pair.tf_ec2_key.key_name
@@ -49,6 +51,14 @@ resource "aws_security_group" "ec2_security_group" {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # Accept all inbound requests
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "all"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
