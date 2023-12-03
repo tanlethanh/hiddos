@@ -24,6 +24,9 @@ First things first, you need to init and launch victim machine
 hiddos victim --launch
 ```
 
+What happens after running `launch` command?
+-> This command launch some cloud setup by using Terraform, with 2 ec2 instance, one for victim and one for a DNS server (used to simulate DNS Amplification attack). Also it setups some config and creates `.hiddos` directory used by another commands
+
 ## Start
 
 ### Pure attack
