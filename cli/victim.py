@@ -3,6 +3,8 @@ from subprocess import PIPE, run
 
 import click
 
+from cli.utils.common import load_terraform_output
+
 
 @click.command()
 @click.pass_context
@@ -36,28 +38,16 @@ def victim(ctx, launch, ip):
         ip = True
 
     if ip:
-        command = [
-            "terraform",
-            "-chdir=./cloud",
-            "output",
-            "--raw",
-            "instance_public_ip",
-        ]
-        result = run(command, stdout=PIPE, stderr=PIPE)
-        if result.returncode == 0:
-            out = result.stdout.decode("utf-8")
-            click.echo(f"Victim IP address: {out}")
-            f = open(".hiddos/victim.json")
-            meta = json.load(f)
-            meta["ip"] = out
-            json.dump(meta, open(".hiddos/victim.json", "w"), indent=4)
-            f.close()
-
-        else:
-            err = result.stderr.decode("utf-8")
-            click.echo(f"Fail to get ip from terraform output:\n{err}", err=True)
-            click.echo("Note: Make sure you have launched victim machine by Terraform")
-            return
+        f = open(".hiddos/victim.json")
+        meta = json.load(f)
+        ip = load_terraform_output("instance_public_ip")
+        click.echo(f"Victim IP address: {ip}")
+        meta["ip"] = ip
+        dns_ip = load_terraform_output("dns_public_ip")
+        meta["dns_ip"] = dns_ip
+        click.echo(f"DNS IP address: {dns_ip}")
+        json.dump(meta, open(".hiddos/victim.json", "w"), indent=4)
+        f.close()
     else:
         click.echo(ctx.get_help())
 

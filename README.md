@@ -71,3 +71,7 @@ Connect to the instance by SSH
 ```shell
 ssh ec2-user@<ip address> -i ./rf_ec2_key.pem
 ```
+
+## References
+
+[DNS amplification example](https://gist.github.com/thom-s/7b3fcdcb88c0670167ccdd6ebca3c924?permalink_comment_id=3578341)
