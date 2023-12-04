@@ -1,5 +1,5 @@
 <h1 align="center">HiDDoS</h1>
-<p align="center">A simulation CLI used to learn and simulate DoS/DDoS attacks using cloud services and cyber tools****</p>
+<p align="center">A simulation CLI used to learn and simulate DoS/DDoS attacks using cloud services and cyber tools</p>
 
 ## Setup
 
