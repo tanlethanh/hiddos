@@ -5,9 +5,9 @@
 
 ### Setup dependencies
 
-We use Terraform with [AWS](https://docs.aws.amazon.com/) provider to launch an ec2 instance as a victim, you need to setup an AWS account and config `credentials` in the local environment
+Install `terraform`, `hping3`, `ssh` (optional)
 
-To make attacks more efficient, we use `sendpfast` of `scapy` that need `tcpreplay` dependency, you need to install it before running the CLI
+We use Terraform with [AWS](https://docs.aws.amazon.com/) provider to launch an ec2 instance as a victim, you need to setup an AWS account and config `credentials` in the local environment
 
 ### Setup cli
 
