@@ -36,9 +36,7 @@ query_type = [
 @click.pass_context
 def dns_amplification(ctx, ip, dns_ip, count, mode):
     """DNS Amplification attack"""
-    click.echo(
-        "\n\n-------------------- DNS Amplification attack ---------------------\n"
-    )
+    click.echo("-------------------- DNS Amplification attack ---------------------\n")
     if not ip:
         ip = get_victim_ip()
     if not dns_ip:

@@ -19,7 +19,7 @@ from cli.utils.common import get_victim_ip, rand_int, random_ip
 @click.pass_context
 def syn_flood(ctx, ip, count, mode):
     """SYN flood attack"""
-    click.echo("\n\n-------------------- SYN flood attack ---------------------\n")
+    click.echo("-------------------- SYN flood attack ---------------------\n")
     if not ip:
         ip = get_victim_ip()
 

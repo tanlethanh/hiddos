@@ -15,10 +15,13 @@ paths = [
 
 @click.command(help="SSH to victim or dns server")
 @click.option(
-    "--target", help="SSH to victim or dns server", type=click.Choice(["victim", "dns"])
+    "-t",
+    "--target",
+    help="SSH to victim or dns server",
+    type=click.Choice(["victim", "dns"]),
 )
 def ssh(target):
-    click.echo("\n\n-------------------- Run SSH ---------------------\n")
+    click.echo("-------------------- Run SSH ---------------------\n")
     for p in paths:
         abs_path = os.path.join(os.getcwd(), p)
         if os.path.exists(abs_path):

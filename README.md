@@ -62,23 +62,16 @@ You need to open `Wireshark` and watch network changes, a tone of SYN packages s
 
 ### Connect and SSH
 
-Go to cloud directory and run terraform setup
+Connect to DNS server
 
 ```shell
-cd cloud
-terraform apply
+hiddos ssh -t dns
 ```
 
-After `terraform apply`, it shows IP address of launched instance used to connect ssh from locally. Also, an ssh key will be generated, you need to enable key permission
+Connect to Victim machine
 
 ```shell
-chmod 400 ./rf_ec2_key.pem
-```
-
-Connect to the instance by SSH
-
-```shell
-ssh ec2-user@<ip address> -i ./rf_ec2_key.pem
+hiddos ssh -t victim
 ```
 
 ## References

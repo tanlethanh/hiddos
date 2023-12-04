@@ -15,7 +15,7 @@ from cli.utils.common import load_terraform_output
     "--ip", help="Reload IP address of EC2 instances from cloud", is_flag=True
 )
 def cloud(ctx, launch, ip):
-    click.echo("\n\n-------------------- Victim ---------------------\n")
+    click.echo("-------------------- Victim ---------------------\n")
     if launch:
         click.echo("Init Terraform for launching victim machine on AWS EC2...")
         command = ["terraform", "-chdir=./cloud", "init"]

