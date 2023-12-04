@@ -8,8 +8,8 @@ logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 
 
 from cli.dns_amplification import dns_amplification
-from cli.syn_flood import syn_flood
 from cli.ping_of_death import ping_of_death
+from cli.syn_flood import syn_flood
 from cli.teardrop import teardrop
 from cli.victim import victim
 
@@ -37,7 +37,8 @@ def hiddos(init):
     else:
         if not os.path.exists(meta_path):
             click.echo(
-                "Not found .hiddos config, please init the project first by `hiddos --init` or going to root of project",
+                "Not found .hiddos config, please init the project first by `hiddos \
+                    --init` or going to root of project",
                 err=True,
             )
             exit(-1)

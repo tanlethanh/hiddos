@@ -7,7 +7,7 @@ resource "aws_security_group" "hiddos_ec2_security_group" {
   ingress {
     from_port   = 0
     to_port     = 0
-    protocol    = "-1"
+    protocol    = "all"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -15,7 +15,7 @@ resource "aws_security_group" "hiddos_ec2_security_group" {
   egress {
     from_port   = 0
     to_port     = 0
-    protocol    = "-1"
+    protocol    = "all"
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
