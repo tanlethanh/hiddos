@@ -1,28 +1,45 @@
 import json
+import os
 import random
 from subprocess import PIPE, run
 
 import click
+
+config_paths = [
+    ".hiddos/victim.json",
+    "../.hiddos/victim.json",
+    "../../.hiddos/victim.json",
+]
 
 
 def get_victim_ip() -> str:
     """
     Get the victim's IP address
     """
-    f = open(".hiddos/victim.json")
-    meta = json.load(f)
+    for p in config_paths:
+        if os.path.exists(os.path.join(os.getcwd(), p)):
+            f = open(p)
+            meta = json.load(f)
+            click.echo(f"Victim IP address: {meta}")
+            click.echo(f"Victim IP address: {p}")
+            return meta["ip"]
 
-    return meta["ip"]
+    click.echo("Cannot find .hiddos config", err=True)
+    click.exceptions.Exit(-1)
 
 
 def get_dns_ip() -> str:
     """
     Get the DNS's IP address
     """
-    f = open(".hiddos/victim.json")
-    meta = json.load(f)
+    for p in config_paths:
+        if os.path.exists(os.path.join(os.getcwd(), p)):
+            f = open(p)
+            meta = json.load(f)
+            return meta["dns_ip"]
 
-    return meta["dns_ip"]
+    click.echo("Cannot find .hiddos config", err=True)
+    click.exceptions.Exit(-1)
 
 
 def random_ip():

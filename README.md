@@ -7,6 +7,8 @@
 
 We use Terraform with [AWS](https://docs.aws.amazon.com/) provider to launch an ec2 instance as a victim, you need to setup an AWS account and config `credentials` in the local environment
 
+To make attacks more efficient, we use `sendpfast` of `scapy` that need `tcpreplay` dependency, you need to install it before running the CLI
+
 ### Setup cli
 
 We already have a CLI to run the simulation easily. Firstly, you need to build the CLI in development mode
@@ -45,7 +47,7 @@ hiddos syn-flood
 ```
 
 ```shell
-hiddos syn-flood --mode ddos -num-pkg 999999
+hiddos syn-flood --mode ddos --count 999999
 ```
 
 You need to open `Wireshark` and watch network changes, a tone of SYN packages sent to the victim. Our setup primarily points to port 80 of HTTP requests, the `cli` will shows a URL for you to launch a web page as a legitimate client. After a few seconds, the server victim will be down, and you can not reach the server to get the web page.

