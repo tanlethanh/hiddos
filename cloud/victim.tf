@@ -9,9 +9,23 @@ resource "aws_instance" "hiddos-victim" {
     Name = "hiddos-victim"
   }
 
+  provisioner "remote-exec" {
+    inline = [
+      "sudo yum install -y wireshark",
+    ]
+
+    connection {
+      type        = "ssh"
+      host        = self.public_ip
+      user        = "ec2-user"
+      private_key = tls_private_key.hiddos_tf_ec2_key.private_key_pem
+    }
+  }
+
   user_data = <<-EOF
               #!/bin/bash
               python3 -m http.server 80
+              sudo yum install -y wireshark
               EOF
 }
 
