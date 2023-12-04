@@ -8,3 +8,6 @@ terraform.tfstate*
 __pycache__
 
 hiddos*
+venv
+build
+.DS_STORE

@@ -6,6 +6,7 @@ setup(
     py_modules=["cli"],
     install_requires=[
         "Click",
+        "scapy",
     ],
     entry_points="""
         [console_scripts]
