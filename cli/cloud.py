@@ -9,10 +9,12 @@ from cli.utils.common import load_terraform_output
 @click.command()
 @click.pass_context
 @click.option(
-    "--launch", help="Launch victim machine on AWS EC2 by Terraform", is_flag=True
+    "--launch", help="Launch cloud machine on AWS EC2 by Terraform", is_flag=True
 )
-@click.option("--ip", help="IP address of victim", is_flag=True)
-def victim(ctx, launch, ip):
+@click.option(
+    "--ip", help="Reload IP address of EC2 instances from cloud", is_flag=True
+)
+def cloud(ctx, launch, ip):
     click.echo("\n\n-------------------- Victim ---------------------\n")
     if launch:
         click.echo("Init Terraform for launching victim machine on AWS EC2...")
@@ -29,10 +31,10 @@ def victim(ctx, launch, ip):
         command = ["terraform", "-chdir=./cloud", "apply", "-auto-approve"]
         result = run(command, stdout=PIPE, stderr=PIPE)
         if result.returncode == 0:
-            click.echo("Victim machine launched successfully")
+            click.echo("Machines launched successfully")
         else:
             err = result.stderr.decode("utf-8")
-            click.echo(f"Fail to launch victim machine:\n{err}", err=True)
+            click.echo(f"Fail to launch machines:\n{err}", err=True)
             return
 
         ip = True

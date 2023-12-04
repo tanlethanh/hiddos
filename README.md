@@ -19,11 +19,19 @@ pip install --editable .
 
 After above step, you already have a cli to simulate and test DoS/DDoS attack. View detail of the cli `hiddos --help`, And remember to just run the CLI at root of project
 
-First things first, you need to init and launch victim machine
+Init HiDDoS project
 
 ```shell
-hiddos victim --launch
+hiddos init
 ```
+
+First things first, you need to init and launch cloud machines (DNS server and Victim machine)
+
+```shell
+hiddos cloud --launch
+```
+
+If you work directly with Terraform, remember to run `hiddos cloud --ip` to resync the IP config for other commands
 
 What happens after running `launch` command?
 -> This command launches some cloud setup using Terraform, with 2 ec2 instances, one for a victim and one for a DNS server (used to simulate a DNS Amplification attack). Also it setups some config and creates `.hiddos` directory used by other commands

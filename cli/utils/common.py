@@ -42,6 +42,20 @@ def get_dns_ip() -> str:
     click.exceptions.Exit(-1)
 
 
+def show_hiddos_config() -> dict:
+    """
+    Get the DNS's IP address
+    """
+    for p in config_paths:
+        if os.path.exists(os.path.join(os.getcwd(), p)):
+            f = open(p)
+            meta = json.load(f)
+            return meta
+
+    click.echo("Cannot find .hiddos config", err=True)
+    click.exceptions.Exit(-1)
+
+
 def random_ip():
     ip = ".".join(map(str, (random.randint(0, 255) for _ in range(4))))
     return ip
