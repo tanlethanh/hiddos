@@ -8,6 +8,10 @@ terraform.tfstate*
 __pycache__
 
 hiddos*
+<<<<<<< HEAD
 venv
 build
 .DS_STORE
+=======
+.hiddos
+>>>>>>> 1903480317580cb48278d0f8829a1f4ca655f75e
