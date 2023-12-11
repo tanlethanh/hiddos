@@ -12,12 +12,27 @@ from cli.utils.common import load_terraform_output
     "--launch", help="Launch cloud machine on AWS EC2 by Terraform", is_flag=True
 )
 @click.option(
+    "--destroy", help="Destroy cloud machine on AWS EC2 by Terraform", is_flag=True
+)
+@click.option(
     "--ip", help="Reload IP address of EC2 instances from cloud", is_flag=True
 )
-def cloud(ctx, launch, ip):
+def cloud(ctx, launch, destroy, ip):
     click.echo("-------------------- Victim ---------------------\n")
+    if destroy:
+        click.echo("Destroy machine on AWS EC2 by Terraform...")
+        command = ["terraform", "-chdir=./cloud", "destroy", "-auto-approve"]
+        result = run(command, stdout=PIPE, stderr=PIPE)
+        if result.returncode == 0:
+            click.echo("Machines destroyed successfully")
+        else:
+            err = result.stderr.decode("utf-8")
+            click.echo(f"Fail to destroy machines:\n{err}", err=True)
+            return
+        return
+
     if launch:
-        click.echo("Init Terraform for launching victim machine on AWS EC2...")
+        click.echo("Init Terraform for launching machine on AWS EC2...")
         command = ["terraform", "-chdir=./cloud", "init"]
         result = run(command, stdout=PIPE, stderr=PIPE)
         if result.returncode == 0:
